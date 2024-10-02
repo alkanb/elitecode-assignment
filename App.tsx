@@ -1,20 +1,60 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import LaunchingScreen from './src/screens/LaunchingScreen';
+import QuestionScreen from './src/screens/QuestionScreen';
+import CorrectAnswerScreen from './src/screens/CorrectAnswerScreen';
+import IncorrectAnswerScreen from './src/screens/IncorrectAnswerScreen';
 
-export default function App() {
+const Stack = createStackNavigator<RootStackParamList>();
+
+
+function AppStack() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Stack.Navigator initialRouteName="Launching">
+      <Stack.Screen 
+        name="Launching" 
+        component={LaunchingScreen} 
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen 
+        name="Question" 
+        component={QuestionScreen} 
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen 
+        name="CorrectAnswer" 
+        component={CorrectAnswerScreen} 
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen 
+        name="IncorrectAnswer" 
+        component={IncorrectAnswerScreen} 
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
   );
 }
+type RootStackParamList = {
+  Question: undefined;
+  Launching: undefined;
+  CorrectAnswer: undefined;
+  IncorrectAnswer: undefined;
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+
+const App = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Launching">
+        <Stack.Screen name="Launching" component={LaunchingScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Question" component={QuestionScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="CorrectAnswer" component={CorrectAnswerScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="IncorrectAnswer" component={IncorrectAnswerScreen} options={{ headerShown: false }} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+
+export default App;
